@@ -1,0 +1,10 @@
+MDBoxLayout:
+    orientation: "vertical"
+
+    MDToolbar:
+        title: "Blog & Journal"
+        right_action_items: [["home", lambda x: app.public_home_page()], ["human-capacity-increase", lambda x: app.members_home_page()], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: app.create_post()], ["head", lambda x: app.admin_page()], ["power", lambda x: app.login_logout()]]
+
+    MDLabel:
+        text: "Content"
+        halign: "center"
