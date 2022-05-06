@@ -11,6 +11,7 @@ store = JsonStore('storage.json')
 class MemberScreen(MDScreen):
 
     def load_posts(self):
+        self.ids.posts.clear_widgets()
         if store.get('is_logged_in')['value']:
             # print('in')
             # session

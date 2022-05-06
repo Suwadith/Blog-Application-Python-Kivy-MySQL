@@ -14,7 +14,7 @@ ScreenManager:
 
         MDToolbar:
             title: "Blog & Journal"
-            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: app.create_post()], ["head", lambda x: app.admin_page()], ["power", lambda x: app.login_logout()]]
+            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: app.create_post()], ["head", lambda x: app.admin_page()], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
 
         MDBoxLayout:
             orientation: "vertical"
@@ -42,7 +42,7 @@ ScreenManager:
 
         MDToolbar:
             title: "Blog & Journal"
-            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: app.create_post()], ["head", lambda x: app.admin_page()], ["power", lambda x: app.login_logout()]]
+            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: app.create_post()], ["head", lambda x: app.admin_page()], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
 
         MDBoxLayout:
             orientation: "vertical"
@@ -55,3 +55,61 @@ ScreenManager:
                     id: posts
                     spacing: "15dp"
                     adaptive_height: True
+
+<LoginScreen>:
+    name: 'login'
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDToolbar:
+            title: "Blog & Journal"
+            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: app.create_post()], ["head", lambda x: app.admin_page()], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: "8dp"
+
+            ScrollView:
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    id: posts
+                    spacing: "15dp"
+                    adaptive_height: True
+
+                    MDCard:
+                        size: 500, 400
+                        orientation: "vertical"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        size_hint: None, None
+                        #size_hint_x: 0.5
+                        #size_hint_y: 0.8
+                        padding: 20
+                        spacing: 25
+
+                        MDLabel:
+                            halign: "center"
+                            text: "Login"
+
+                        MDTextField:
+                            id: username
+                            hint_text: "Username"
+                            helper_text: "Please type your username"
+                            helper_text_mode: "on_focus"
+
+                        MDTextField:
+                            id: password
+                            hint_text: "Password"
+                            helper_text: "Please type your password"
+                            helper_text_mode: "on_focus"
+
+                        MDRaisedButton:
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            text: "LOGIN"
+                            on_press: root.login()
+
+                        MDRaisedButton:
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            text: "REGISTER"
+

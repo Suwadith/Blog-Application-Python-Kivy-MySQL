@@ -8,6 +8,7 @@ import database_handler
 class PublicScreen(MDScreen):
 
     def load_posts(self):
+        self.ids.posts.clear_widgets()
         results = database_handler.get_public_blog_post()
         for post in results:
             post_card = MDCard(

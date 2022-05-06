@@ -8,4 +8,9 @@ import database_handler
 store = JsonStore('storage.json')
 
 class LoginScreen(MDScreen):
-    pass
+
+    def login(self):
+        username = self.ids.username.text
+        password = self.ids.password.text
+
+
