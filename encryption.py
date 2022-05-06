@@ -25,6 +25,6 @@ def encrypt_message(message):
 
 
 
-# print(encrypt_password("cricket is the worst game ever"))
+# print(encrypt_password("cricket"))
 #
 # print(decrypt_password("r43cKlA7*RRmYmaI2uN0TmNlwH+3htw==*Jt03qXXqYj5vPQHbENTOzw==*yaXFD4gZllcq3RE5SJ32KA==", "killme"))

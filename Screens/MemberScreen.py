@@ -3,16 +3,18 @@ from kivymd.uix.card import MDCard, MDSeparator
 from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import Snackbar
+import StaticPages
 
 import database_handler
 
-store = JsonStore('storage.json')
+# store = JsonStore('storage.json')
 
 class MemberScreen(MDScreen):
 
     def load_posts(self):
         self.ids.posts.clear_widgets()
-        if store.get('is_logged_in')['value']:
+        # if store.get('is_logged_in')['value']:
+        if StaticPages.is_logged_in:
             # print('in')
             # session
             results = database_handler.get_member_blog_post()

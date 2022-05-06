@@ -8,8 +8,8 @@ from Screens.LoginScreen import LoginScreen
 from Screens.MemberScreen import MemberScreen
 from Screens.PublicScreen import PublicScreen
 
-store = JsonStore('storage.json')
-store.put('is_logged_in', value=False)
+# store = JsonStore('storage.json')
+# store.put('is_logged_in', value=False)
 
 
 class RegistrationScreen(MDScreen):
@@ -18,7 +18,7 @@ class RegistrationScreen(MDScreen):
 
 
 class ScreenManager(ScreenManager):
-    is_logged_in = False
+    pass
 
 sm = ScreenManager()
 sm.add_widget(PublicScreen(name='public'))
@@ -30,7 +30,6 @@ sm.add_widget(RegistrationScreen(name='registration'))
 class BlogAndJournal(MDApp):
 
     def build(self):
-
         return Builder.load_file('Main.kv')
 
 

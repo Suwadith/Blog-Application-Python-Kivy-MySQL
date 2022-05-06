@@ -2,15 +2,29 @@ from kivy.storage.jsonstore import JsonStore
 from kivymd.uix.card import MDCard, MDSeparator
 from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import MDScreen
+from kivymd.uix.snackbar import Snackbar
 
+import StaticPages
 import database_handler
 
-store = JsonStore('storage.json')
+# store = JsonStore('storage.json')
 
 class LoginScreen(MDScreen):
 
     def login(self):
         username = self.ids.username.text
         password = self.ids.password.text
+
+        login_check = database_handler.check_password(username, password)
+
+        if login_check:
+            # print("valid")
+            # store.put('is_logged_in', value=True)
+            # store.put('username', value=username)
+            StaticPages.is_logged_in = True
+            Snackbar(text="Login successful").open()
+        else:
+            Snackbar(text="invalid username/password").open()
+            # print("invalid")
 
 
