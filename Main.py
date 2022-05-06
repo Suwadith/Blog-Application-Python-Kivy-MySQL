@@ -8,7 +8,7 @@ from Screens.LoginScreen import LoginScreen
 from Screens.MemberScreen import MemberScreen
 from Screens.PublicScreen import PublicScreen
 
-store = JsonStore('hello.json')
+store = JsonStore('storage.json')
 store.put('is_logged_in', value=False)
 
 

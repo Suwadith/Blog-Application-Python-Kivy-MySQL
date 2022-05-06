@@ -6,7 +6,7 @@ from kivymd.uix.snackbar import Snackbar
 
 import database_handler
 
-store = JsonStore('hello.json')
+store = JsonStore('storage.json')
 
 class MemberScreen(MDScreen):
 

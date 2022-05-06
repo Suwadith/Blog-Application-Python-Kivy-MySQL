@@ -5,7 +5,7 @@ from kivymd.uix.screen import MDScreen
 
 import database_handler
 
-store = JsonStore('hello.json')
+store = JsonStore('storage.json')
 
 class LoginScreen(MDScreen):
     pass
