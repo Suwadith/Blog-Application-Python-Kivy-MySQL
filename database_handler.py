@@ -69,7 +69,11 @@ def get_public_blog_post():
     results = cursor.fetchall()
     return results
 
-# get_public_blog_post()
+def get_member_blog_post():
+    sql = "SELECT * FROM blog_posts WHERE visibility='member'"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    return results
 
 
 # storing public chat messages using encryption in the DB

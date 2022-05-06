@@ -1,9 +1,3 @@
-import base64
-import time
-
-from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager
-from kivymd.app import MDApp
 from kivymd.uix.card import MDCard, MDSeparator
 from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import MDScreen
@@ -66,25 +60,3 @@ class PublicScreen(MDScreen):
             # post_card.add_widget(post_attachment)
 
             self.ids.posts.add_widget(post_card)
-
-
-class MemberScreen(MDScreen):
-    pass
-
-
-class ScreenManager(ScreenManager):
-    pass
-
-
-sm = ScreenManager()
-sm.add_widget(PublicScreen(name='public'))
-sm.add_widget(MemberScreen(name='member'))
-
-
-class BlogAndJournal(MDApp):
-
-    def build(self):
-        return Builder.load_file('Toolbar.kv')
-
-
-BlogAndJournal().run()
