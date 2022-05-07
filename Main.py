@@ -7,13 +7,10 @@ from kivy.storage.jsonstore import JsonStore
 from Screens.LoginScreen import LoginScreen
 from Screens.MemberScreen import MemberScreen
 from Screens.PublicScreen import PublicScreen
+from Screens.RegistrationScreen import RegistrationScreen
 
 # store = JsonStore('storage.json')
 # store.put('is_logged_in', value=False)
-
-
-class RegistrationScreen(MDScreen):
-    pass
 
 
 
