@@ -4,6 +4,7 @@ ScreenManager:
     LoginScreen:
     RegistrationScreen:
     CreatePostScreen:
+    PrivateScreen:
 
 <PublicScreen>:
     name: 'public'
@@ -15,7 +16,7 @@ ScreenManager:
 
         MDToolbar:
             title: "Blog & Journal"
-            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: app.admin_page()], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
+            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: setattr(root.manager, 'current', 'private')], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: setattr(root.manager, 'current', 'create_post')], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
 
         MDBoxLayout:
             orientation: "vertical"
@@ -43,7 +44,7 @@ ScreenManager:
 
         MDToolbar:
             title: "Blog & Journal"
-            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: app.admin_page()], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
+            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: setattr(root.manager, 'current', 'private')], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: setattr(root.manager, 'current', 'create_post')], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
 
         MDBoxLayout:
             orientation: "vertical"
@@ -65,7 +66,7 @@ ScreenManager:
 
         MDToolbar:
             title: "Blog & Journal"
-            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: app.admin_page()], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
+            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: setattr(root.manager, 'current', 'private')], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: setattr(root.manager, 'current', 'create_post')], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
 
         MDBoxLayout:
             orientation: "vertical"
@@ -124,7 +125,7 @@ ScreenManager:
 
         MDToolbar:
             title: "Blog & Journal"
-            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: app.admin_page()], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
+            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: setattr(root.manager, 'current', 'private')], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: setattr(root.manager, 'current', 'create_post')], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
 
         MDBoxLayout:
             orientation: "vertical"
@@ -178,7 +179,7 @@ ScreenManager:
 
         MDToolbar:
             title: "Blog & Journal"
-            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: app.private_home_page()], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: app.admin_page()], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
+            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: setattr(root.manager, 'current', 'private')], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: setattr(root.manager, 'current', 'create_post')], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
 
         MDBoxLayout:
             orientation: "vertical"
@@ -245,3 +246,26 @@ ScreenManager:
                             text: "POST"
                             on_press: root.create_post()
 
+<PrivateScreen>:
+    name: 'private'
+
+    on_enter: self.load_posts()
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDToolbar:
+            title: "Blog & Journal"
+            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: setattr(root.manager, 'current', 'private')], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: setattr(root.manager, 'current', 'create_post')], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: "8dp"
+
+            ScrollView:
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    id: posts
+                    spacing: "15dp"
+                    adaptive_height: True

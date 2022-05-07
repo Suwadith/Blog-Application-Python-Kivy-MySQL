@@ -11,6 +11,7 @@ import StaticPages
 from Screens.CreatePostScreen import CreatePostScreen
 from Screens.LoginScreen import LoginScreen
 from Screens.MemberScreen import MemberScreen
+from Screens.PrivateScreen import PrivateScreen
 from Screens.PublicScreen import PublicScreen
 from Screens.RegistrationScreen import RegistrationScreen
 
@@ -24,6 +25,7 @@ sm.add_widget(MemberScreen(name='member'))
 sm.add_widget(LoginScreen(name='login'))
 sm.add_widget(RegistrationScreen(name='registration'))
 sm.add_widget(CreatePostScreen(name='create_post'))
+sm.add_widget(PrivateScreen(name='private'))
 
 
 class BlogAndJournal(MDApp):

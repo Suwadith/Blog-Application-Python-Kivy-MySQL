@@ -38,3 +38,6 @@ class CreatePostScreen(MDScreen):
 
         else:
             Snackbar(text="Please login to make posts").open()
+
+        self.ids.title.text = ''
+        self.ids.body.text = ''

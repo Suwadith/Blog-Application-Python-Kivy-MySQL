@@ -63,6 +63,16 @@ def store_blog_post(title, body, visibility, username):
     else:
         return False
 
+def delete_blog_post(blog_id):
+    sql = "DELETE FROM blog_posts WHERE blog_id='"+str(blog_id)+"'"
+    cursor.execute(sql)
+    database.commit()
+
+    if cursor.rowcount > 0:
+        return True
+    else:
+        return False
+
 
 def get_public_blog_post():
     sql = "SELECT * FROM blog_posts WHERE visibility='public' ORDER BY `timestamp` DESC"
@@ -72,6 +82,12 @@ def get_public_blog_post():
 
 def get_member_blog_post():
     sql = "SELECT * FROM blog_posts WHERE visibility='member' ORDER BY `timestamp` DESC"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    return results
+
+def get_user_blog_posts(username):
+    sql = "SELECT * FROM blog_posts WHERE username='"+username+"' ORDER BY `timestamp` DESC"
     cursor.execute(sql)
     results = cursor.fetchall()
     return results
