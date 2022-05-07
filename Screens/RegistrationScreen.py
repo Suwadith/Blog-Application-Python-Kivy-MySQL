@@ -8,8 +8,14 @@ import database_handler
 
 class RegistrationScreen(MDScreen):
 
+    def verify_username_structure(self, username):
+        if re.match(r"^[A-Za-z][A-Za-z0-9_]{4,15}$", username):
+            return True
+        else:
+            return False
+
     def verify_password_strength(self, password):
-        if re.match(r"^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*#?&])[\w\d@$!%*#?&]{6,12}$", password):
+        if re.match(r"^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*#?&])[\w\d@$!%*#?&]{5,12}$", password):
             return True
         else:
             return False
@@ -18,12 +24,26 @@ class RegistrationScreen(MDScreen):
         username = self.ids.username.text
         password = self.ids.password.text
 
+        username_check = self.verify_username_structure(username)
         password_check = self.verify_password_strength(password)
-        if password_check:
-            print('register')
+
+        # print('user' + str(username_check))
+        # print('pass' + str(password_check))
+
+        if username_check and password_check:
+            execute_command = database_handler.register_user(username, password, "user")
+
+            if execute_command:
+                Snackbar(text="User registered Successfully").open()
+            else:
+                Snackbar(text="username already taken").open()
         else:
-            MDDialog(title="Password should at least have\n"
-                           "at least one digit\n"
-                           "at least one uppercase letter\n"
-                           "at least one lowercase letter\n"
-                           "at least one special character\n").open()
+            MDDialog(title="Username (5-15 characters):\n"
+                           "should start with an alphabet\n"
+                           "can have alphabets, numbers or an underscore\n"
+                           "\n"
+                           "Password (6-12 characters) should at least have:\n"
+                           "one digit\n"
+                           "one uppercase letter\n"
+                           "one lowercase letter\n"
+                           "one special character [@$!%*#?&]\n").open()

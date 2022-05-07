@@ -45,7 +45,7 @@ def register_user(username, password, user_type):
         if cursor.rowcount > 0:
             return True
         else:
-            print("something happened")
+            return False
     else:
         return False
 
@@ -85,4 +85,5 @@ def store_to_log(username, message):
 # register_user("Suwadith", "wdp3YttyyX/LSQ==*vrQ7f2+vY6pWnj8+h1RRmA==*Bx+z56v6FL+BZD5SVZcU0g==*5GKS7GBWeTkrZbLisz7UZg==", "user")
 # store_public_chat("Suwadith", "chat storage check 2")
 
-# print(check_password("admin", "admin"))
+# print(check_password("suwadith", "cricket")) admin
+# print(check_password("charles", "Charles!123")) user
