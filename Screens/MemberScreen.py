@@ -8,6 +8,8 @@ import StaticPages
 import database_handler
 
 # store = JsonStore('storage.json')
+import encryption
+
 
 class MemberScreen(MDScreen):
 
@@ -30,7 +32,7 @@ class MemberScreen(MDScreen):
                 )
                 post_title = MDLabel(
                     halign="center",
-                    text=post[2],
+                    text=encryption.decrypt_message(post[2]),
                     theme_text_color="Secondary",
                     size_hint_y=None,
                     height="40dp"
@@ -47,7 +49,7 @@ class MemberScreen(MDScreen):
                     height="20dp"
                 )
                 post_body = MDLabel(
-                    text=post[3],
+                    text=encryption.decrypt_message(post[3]),
                     # size_hint_y=None
                     # height='10dp'
                 )

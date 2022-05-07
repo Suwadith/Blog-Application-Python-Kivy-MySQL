@@ -51,26 +51,27 @@ def register_user(username, password, user_type):
 
 
 # storing public chat messages using encryption in the DB
-def store_blog_post(title, body, file, visibility, username, user_id):
+def store_blog_post(title, body, visibility, username):
     title = encryption.encrypt_message(title)
-    # sql = "INSERT into chat_history (username, message) VALUES (%s, %s)"
-    # val = (username, message)
-    # cursor.execute(sql, val)
-    # database.commit()
-    # if cursor.rowcount > 0:
-    #     pass
-    # else:
-    #     print("Unable to store public chats")
+    body = encryption.encrypt_message(body)
+    sql = "INSERT into blog_posts (title, body, visibility, username) VALUES (%s, %s, %s, %s)"
+    val = (title, body, visibility, username)
+    cursor.execute(sql, val)
+    database.commit()
+    if cursor.rowcount > 0:
+        return True
+    else:
+        return False
 
 
 def get_public_blog_post():
-    sql = "SELECT * FROM blog_posts WHERE visibility='public'"
+    sql = "SELECT * FROM blog_posts WHERE visibility='public' ORDER BY `timestamp` DESC"
     cursor.execute(sql)
     results = cursor.fetchall()
     return results
 
 def get_member_blog_post():
-    sql = "SELECT * FROM blog_posts WHERE visibility='member'"
+    sql = "SELECT * FROM blog_posts WHERE visibility='member' ORDER BY `timestamp` DESC"
     cursor.execute(sql)
     results = cursor.fetchall()
     return results

@@ -19,6 +19,7 @@ class LoginScreen(MDScreen):
             # store.put('is_logged_in', value=True)
             # store.put('username', value=username)
             StaticPages.is_logged_in = True
+            StaticPages.username = username
             Snackbar(text="Login successful").open()
         else:
             Snackbar(text="invalid username/password").open()

@@ -7,6 +7,8 @@ from kivymd.uix.screen import MDScreen
 import database_handler
 
 # store = JsonStore('storage.json')
+import encryption
+
 
 class PublicScreen(MDScreen):
 
@@ -25,7 +27,7 @@ class PublicScreen(MDScreen):
             )
             post_title = MDLabel(
                 halign="center",
-                text=post[2],
+                text=str(encryption.decrypt_message(post[2])),
                 theme_text_color="Secondary",
                 size_hint_y=None,
                 height="40dp"
@@ -42,7 +44,7 @@ class PublicScreen(MDScreen):
                 height="20dp"
             )
             post_body = MDLabel(
-                text=post[3],
+                text=str(encryption.decrypt_message(post[3])),
                 # size_hint_y=None
                 # height='10dp'
             )

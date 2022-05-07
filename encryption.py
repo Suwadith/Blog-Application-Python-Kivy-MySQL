@@ -23,6 +23,12 @@ def encrypt_message(message):
     encrypted_message = cryptocode.encrypt(message, "secret_message")
     return encrypted_message
 
+def decrypt_message(message):
+    decrypted_message = cryptocode.decrypt(message, "secret_message")
+    return decrypted_message
+
+# print(encrypt_message("Hello World"))
+# print(decrypt_message("Z02Jr3a7afo9LA==*AczicLVqOcmowN2RU7FQyQ==*JeGw3OyzrEWhYgaY+4CneA==*pf7jCIk0j2/zkp3YyLB15A=="))
 
 
 # print(encrypt_password("cricket"))
