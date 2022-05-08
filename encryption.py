@@ -1,5 +1,6 @@
 import cryptocode
 
+
 # https://github.com/gdavid7/cryptocode/blob/main/cryptocode.py
 # This library uses a form of AES encryption and decryption methodology
 
@@ -18,11 +19,13 @@ def decrypt_password(encrypted_password, password):
         return False
 
 
-# encrypts chat messages using secret key
+# encrypt strings using secret key
 def encrypt_message(message):
     encrypted_message = cryptocode.encrypt(message, "secret_message")
     return encrypted_message
 
+
+# decrypt strings using secret key
 def decrypt_message(message):
     decrypted_message = cryptocode.decrypt(message, "secret_message")
     return decrypted_message
