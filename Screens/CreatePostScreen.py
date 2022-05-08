@@ -39,6 +39,7 @@ class CreatePostScreen(MDScreen):
             result = database_handler.store_blog_post(title, body, visibility, username)
 
             if result:
+                database_handler.store_to_log('created post')
                 Snackbar(text="Successfully posted").open()
             else:
                 Snackbar(text="Error occurred while trying to post").open()

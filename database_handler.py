@@ -1,5 +1,8 @@
+import httpagentparser as httpagentparser
 import mysql.connector
+import geocoder
 
+import StaticPages
 import encryption
 
 database = mysql.connector.connect(
@@ -63,8 +66,9 @@ def store_blog_post(title, body, visibility, username):
     else:
         return False
 
+
 def delete_blog_post(blog_id):
-    sql = "DELETE FROM blog_posts WHERE blog_id='"+str(blog_id)+"'"
+    sql = "DELETE FROM blog_posts WHERE blog_id='" + str(blog_id) + "'"
     cursor.execute(sql)
     database.commit()
 
@@ -73,8 +77,9 @@ def delete_blog_post(blog_id):
     else:
         return False
 
+
 def get_post_by_id(blog_id):
-    sql = "SELECT * FROM blog_posts WHERE blog_id='"+str(blog_id)+"'"
+    sql = "SELECT * FROM blog_posts WHERE blog_id='" + str(blog_id) + "'"
     cursor.execute(sql)
     result = cursor.fetchone()
     return result
@@ -86,22 +91,25 @@ def get_public_blog_post():
     results = cursor.fetchall()
     return results
 
+
 def get_member_blog_post():
     sql = "SELECT * FROM blog_posts WHERE visibility='member' ORDER BY `timestamp` DESC"
     cursor.execute(sql)
     results = cursor.fetchall()
     return results
 
+
 def get_user_blog_posts(username):
-    sql = "SELECT * FROM blog_posts WHERE username='"+username+"' ORDER BY `timestamp` DESC"
+    sql = "SELECT * FROM blog_posts WHERE username='" + username + "' ORDER BY `timestamp` DESC"
     cursor.execute(sql)
     results = cursor.fetchall()
     return results
 
+
 def update_post(title, body, blog_id):
     title = encryption.encrypt_message(title)
     body = encryption.encrypt_message(body)
-    sql = "UPDATE blog_posts SET title='"+title+"', body='"+body+"' WHERE blog_id='"+str(blog_id)+"'"
+    sql = "UPDATE blog_posts SET title='" + title + "', body='" + body + "' WHERE blog_id='" + str(blog_id) + "'"
     cursor.execute(sql)
     database.commit()
 
@@ -112,10 +120,30 @@ def update_post(title, body, blog_id):
 
 
 # storing public chat messages using encryption in the DB
-def store_to_log(username, message):
-    print('Test')
+def store_to_log(activity):
+    gc = geocoder.ip("me")
+    http_user_agent = "Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/532.9 (KHTML, like Gecko) \
+                Chrome/5.0.307.11 Safari/532.9"
+
+    ip_address = gc.ip
+    location = gc.city
+    device = str(httpagentparser.simple_detect(http_user_agent))
+    username = StaticPages.username if StaticPages.username != '' else "Guest"
+
+    sql = "INSERT into logs (activity, username, ip_address, location, device) VALUES (%s, %s, %s, %s, %s)"
+    val = (activity, username, ip_address, location, device)
+    cursor.execute(sql, val)
+    database.commit()
+    if cursor.rowcount > 0:
+        return True
+    else:
+        return False
 
 
+
+# store_to_log('a','b','c')
+
+# print(StaticPages.username if StaticPages.username != '' else "Guest")
 # print(check_username("admin"))
 # register_user("Suwadith", "wdp3YttyyX/LSQ==*vrQ7f2+vY6pWnj8+h1RRmA==*Bx+z56v6FL+BZD5SVZcU0g==*5GKS7GBWeTkrZbLisz7UZg==", "user")
 # store_public_chat("Suwadith", "chat storage check 2")

@@ -5,6 +5,7 @@ from kivymd.uix.card import MDCard, MDSeparator
 from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import Snackbar
+from functools import partial
 import StaticPages
 
 import database_handler
@@ -15,10 +16,11 @@ import encryption
 
 class PrivateScreen(MDScreen):
 
-    def delete_post(self, blog_id):
+    def delete_post(self, blog_id, instance):
         result = database_handler.delete_blog_post(blog_id)
 
         if result:
+            database_handler.store_to_log('deleted post')
             Snackbar(text="Successfully Deleted the post").open()
         else:
             Snackbar(text="Error occurred").open()
@@ -26,7 +28,8 @@ class PrivateScreen(MDScreen):
         self.load_posts()
 
 
-    def edit_post(self, blog_id):
+    def edit_post(self, blog_id, instance):
+        # print(blog_id)
         StaticPages.edit_blog_id = blog_id
         self.parent.current = "edit"
 
@@ -38,6 +41,7 @@ class PrivateScreen(MDScreen):
         if StaticPages.is_logged_in:
             # print('in')
             # session
+            database_handler.store_to_log('accessed personal page section')
             results = database_handler.get_user_blog_posts(StaticPages.username)
             for post in results:
                 post_card = MDCard(
@@ -89,14 +93,21 @@ class PrivateScreen(MDScreen):
                 delete_button = MDRaisedButton(
                     pos_hint={"center_x": .5, "center_y": .5},
                     text="Delete",
-                    on_press=lambda x:self.delete_post(post[0])
+                    # on_press=lambda x:self.delete_post(post[0])
                 )
+                delete_button_callback = partial(self.delete_post, post[0])
+                delete_button.bind(on_press=delete_button_callback)
 
                 edit_button = MDRaisedButton(
                     pos_hint={"center_x": .5, "center_y": .5},
                     text="Edit",
-                    on_press=lambda x: self.edit_post(post[0])
+                    # on_press=lambda x: self.edit_post(post[0])
                 )
+                edit_button_callback = partial(self.edit_post, post[0])
+                edit_button.bind(on_press=edit_button_callback)
+                # edit_button.bind(on_press=self.edit_post(post[0]))
+                # edit_button.bind(on_press=partial(self.edit_post, post[0]))
+                # print(post[0])
 
                 post_card.add_widget(post_title)
                 post_card.add_widget(title_separator)

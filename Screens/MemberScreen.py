@@ -19,6 +19,7 @@ class MemberScreen(MDScreen):
         if StaticPages.is_logged_in:
             # print('in')
             # session
+            database_handler.store_to_log('accessed member posts section')
             results = database_handler.get_member_blog_post()
             for post in results:
                 post_card = MDCard(

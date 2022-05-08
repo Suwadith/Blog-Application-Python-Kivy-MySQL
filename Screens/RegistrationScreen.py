@@ -34,10 +34,12 @@ class RegistrationScreen(MDScreen):
             execute_command = database_handler.register_user(username, password, "user")
 
             if execute_command:
+                database_handler.store_to_log('user registered successfully')
                 Snackbar(text="User registered Successfully").open()
             else:
                 Snackbar(text="username already taken").open()
         else:
+            database_handler.store_to_log('unsuccessful user registration')
             MDDialog(title="Username (5-15 characters):\n"
                            "should start with an alphabet\n"
                            "can have alphabets, numbers or an underscore\n"

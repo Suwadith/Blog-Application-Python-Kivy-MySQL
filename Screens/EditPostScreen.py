@@ -25,13 +25,14 @@ class EditPostScreen(MDScreen):
         body = self.post_body.text
         blog_id = self.result[0]
 
-        print(title)
-        print(body)
-        print(blog_id)
+        # print(title)
+        # print(body)
+        # print(blog_id)
 
         result = database_handler.update_post(title, body, blog_id)
 
         if result:
+            database_handler.store_to_log('edited post')
             Snackbar(text="Successfully updated").open()
         else:
             Snackbar(text="Error occurred while trying to update").open()

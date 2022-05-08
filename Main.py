@@ -8,6 +8,7 @@ from kivy.storage.jsonstore import JsonStore
 from kivy.core.window import Window
 
 import StaticPages
+import database_handler
 from Screens.CreatePostScreen import CreatePostScreen
 from Screens.LoginScreen import LoginScreen
 from Screens.MemberScreen import MemberScreen
@@ -33,6 +34,7 @@ sm.add_widget(EditPostScreen(name='edit'))
 class BlogAndJournal(MDApp):
 
     def build(self):
+        database_handler.store_to_log('launched app')
         return Builder.load_file('Main.kv')
 
 BlogAndJournal().run()

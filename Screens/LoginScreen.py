@@ -20,10 +20,12 @@ class LoginScreen(MDScreen):
             # store.put('username', value=username)
             StaticPages.is_logged_in = True
             StaticPages.username = username
+            database_handler.store_to_log('logged in')
             Snackbar(text="Login successful").open()
         else:
             StaticPages.is_logged_in = False
             StaticPages.username = ''
+            database_handler.store_to_log('failed to login')
             Snackbar(text="invalid username/password").open()
             # print("invalid")
 

@@ -14,6 +14,7 @@ class PublicScreen(MDScreen):
 
     def load_posts(self):
         self.ids.posts.clear_widgets()
+        database_handler.store_to_log('accessed public posts section')
         results = database_handler.get_public_blog_post()
         for post in results:
             post_card = MDCard(
