@@ -57,7 +57,7 @@ class PrivateScreen(MDScreen):
                     orientation="vertical",
                     padding="20dp",
                     size_hint=[None, None],
-                    size=["500dp", "500dp"],
+                    size=["500dp", "600dp"],
                     pos_hint={"center_x": .5, "center_y": .5}
                 )
 
@@ -71,14 +71,6 @@ class PrivateScreen(MDScreen):
 
                 title_separator = MDSeparator(
                     height="1dp"
-                )
-
-                post_timestamp = MDLabel(
-                    text=str(post[1]),
-                    halign="right",
-                    theme_text_color="Secondary",
-                    size_hint_y=None,
-                    height="20dp"
                 )
 
                 post_body = MDLabel(
@@ -125,7 +117,6 @@ class PrivateScreen(MDScreen):
 
                 post_card.add_widget(post_title)
                 post_card.add_widget(title_separator)
-                post_card.add_widget(post_timestamp)
                 post_card.add_widget(post_body)
 
                 if self.player is not None:
