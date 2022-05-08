@@ -8,21 +8,25 @@ import database_handler
 
 class CreatePostScreen(MDScreen):
 
+    # function that binds the file picker
     def file_chooser(self, **kwargs):
         filechooser.open_file(on_selection=self.selected, **kwargs)
 
+    # gets the path of the picked up file
     def selected(self, selection):
         print(selection[0])
         StaticPages.file_path = selection[0]
 
     is_member_only = "public"
 
+    # method to check if it's a public or member only post
     def checkbox_click(self, instance, value):
         if value is True:
             self.is_member_only = "member"
         else:
             self.is_member_only = "public"
 
+    # create a post
     def create_post(self):
         if StaticPages.is_logged_in:
 

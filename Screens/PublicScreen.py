@@ -18,10 +18,12 @@ class PublicScreen(MDScreen):
     image = None
     audio_button = None
 
+    # method to play the audio file
     def play_audio(self, audio_path, instance):
         sound = SoundLoader.load(audio_path)
         sound.play()
 
+    # method to load posts
     def load_posts(self):
         self.ids.posts.clear_widgets()
         database_handler.store_to_log('accessed public posts section')

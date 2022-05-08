@@ -7,12 +7,14 @@ import database_handler
 
 class RegistrationScreen(MDScreen):
 
+    # method to check if the username meets the standards (check the snackbar below for detailed rules)
     def verify_username_structure(self, username):
         if re.match(r"^[A-Za-z][A-Za-z0-9_]{4,15}$", username):
             return True
         else:
             return False
 
+    # method to check if the password meets the standards (check the snackbar below for detailed rules)
     def verify_password_strength(self, password):
         if re.match(r"^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*#?&])[\w\d@$!%*#?&]{5,12}$", password):
             return True

@@ -25,6 +25,7 @@ class PrivateScreen(MDScreen):
         sound = SoundLoader.load(audio_path)
         sound.play()
 
+    # method to delete a specific post based on the blog_id
     def delete_post(self, blog_id, instance):
         result = database_handler.delete_blog_post(blog_id)
 
@@ -36,6 +37,7 @@ class PrivateScreen(MDScreen):
 
         self.load_posts()
 
+    # edit the post by fetching the blog_id and move to the edit screen
     def edit_post(self, blog_id, instance):
         StaticPages.edit_blog_id = blog_id
         self.parent.current = "edit"

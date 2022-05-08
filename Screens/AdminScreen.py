@@ -7,10 +7,13 @@ import database_handler
 
 class AdminScreen(MDScreen):
 
+    # load all logs
     def load_logs(self):
+        # check if user is logged in, and it is the admin
         if StaticPages.is_logged_in and StaticPages.username=='admin':
+            # retrieve activities from logs table
             results = database_handler.retrieve_logs()
-
+            # iterate all the log entries received
             for log in results:
 
                 timestamp = MDLabel(
@@ -32,6 +35,7 @@ class AdminScreen(MDScreen):
                     text=log[5]
                 )
 
+                # attach all the logs to the screen
                 self.ids.logs.add_widget(timestamp)
                 self.ids.logs.add_widget(activity)
                 self.ids.logs.add_widget(username)
@@ -40,4 +44,5 @@ class AdminScreen(MDScreen):
                 self.ids.logs.add_widget(device)
 
         else:
+            # Error popup
             Snackbar(text="Only admin can view the logs").open()
