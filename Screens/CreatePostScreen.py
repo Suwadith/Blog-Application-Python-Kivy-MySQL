@@ -14,11 +14,19 @@ import database_handler
 
 class CreatePostScreen(MDScreen):
 
-    # def file_chooser(self):
-    #     filechooser.open_file(on_selection=self.selected)
-    #
-    # def selected(self, selection):
-    #     print(selection)
+    # def convertToBinaryData(self, filename):
+    #     # Convert digital data to binary format
+    #     with open(filename, 'rb') as file:
+    #         binaryData = file.read()
+    #     StaticPages.file = binaryData
+
+    def file_chooser(self, **kwargs):
+        filechooser.open_file(on_selection=self.selected, **kwargs)
+
+    def selected(self, selection):
+        print(selection[0])
+        StaticPages.file_path = selection[0]
+        # self.convertToBinaryData(selection[0])
 
     is_member_only = "public"
 
@@ -35,8 +43,12 @@ class CreatePostScreen(MDScreen):
             body = self.ids.body.text
             visibility = self.is_member_only
             username = StaticPages.username
+            file_path = StaticPages.file_path
 
-            result = database_handler.store_blog_post(title, body, visibility, username)
+            if file_path is None:
+                result = database_handler.store_blog_post(title, body, visibility, username)
+            else:
+                result = database_handler.store_blog_post_with_file(title, body, visibility, username, file_path)
 
             if result:
                 database_handler.store_to_log('created post')
@@ -49,3 +61,4 @@ class CreatePostScreen(MDScreen):
 
         self.ids.title.text = ''
         self.ids.body.text = ''
+        StaticPages.file_path = None

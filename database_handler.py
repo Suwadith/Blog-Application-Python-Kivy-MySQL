@@ -64,6 +64,19 @@ def store_blog_post(title, body, visibility, username):
     else:
         return False
 
+
+def store_blog_post_with_file(title, body, visibility, username, file_path):
+    title = encryption.encrypt_message(title)
+    body = encryption.encrypt_message(body)
+    sql = "INSERT into blog_posts (title, body, visibility, username, file_path) VALUES (%s, %s, %s, %s, %s)"
+    val = (title, body, visibility, username, file_path)
+    cursor.execute(sql, val)
+    database.commit()
+    if cursor.rowcount > 0:
+        return True
+    else:
+        return False
+
 # delete a specific post using blog_id
 def delete_blog_post(blog_id):
     sql = "DELETE FROM blog_posts WHERE blog_id='" + str(blog_id) + "'"

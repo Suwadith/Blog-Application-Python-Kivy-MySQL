@@ -221,10 +221,10 @@ ScreenManager:
                             multiline: True
                             max_height: "100dp"
 
-                        #MDRaisedButton:
-                            #pos_hint: {"center_x": .5, "center_y": .5}
-                            #text: "Attach File"
-                            #on_press: root.file_chooser()
+                        MDRaisedButton:
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            text: "Attach File"
+                            on_press: root.file_chooser(filters=[["Music", "*mp3", "*ogg", "*aac", "*wav", "*flac"], ["Video", "*mp4", "*mkv", "*avi"] , ["Images", "*jpg", "*jpeg", "*png", "*bmp"]])
 
 
                         MDBoxLayout:

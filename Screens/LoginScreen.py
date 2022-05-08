@@ -4,20 +4,20 @@ from kivymd.uix.snackbar import Snackbar
 import StaticPages
 import database_handler
 
+
 # store = JsonStore('storage.json')
 
 class LoginScreen(MDScreen):
 
     def login(self):
+        # fetch login credentials from teh screen
         username = self.ids.username.text
         password = self.ids.password.text
 
+        # check if the credentials are valid using the DB
         login_check = database_handler.check_password(username, password)
 
         if login_check:
-            # print("valid")
-            # store.put('is_logged_in', value=True)
-            # store.put('username', value=username)
             StaticPages.is_logged_in = True
             StaticPages.username = username
             database_handler.store_to_log('logged in')
@@ -27,6 +27,3 @@ class LoginScreen(MDScreen):
             StaticPages.username = ''
             database_handler.store_to_log('failed to login')
             Snackbar(text="invalid username/password").open()
-            # print("invalid")
-
-
