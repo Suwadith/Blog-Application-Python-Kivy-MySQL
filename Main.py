@@ -14,6 +14,7 @@ from Screens.MemberScreen import MemberScreen
 from Screens.PrivateScreen import PrivateScreen
 from Screens.PublicScreen import PublicScreen
 from Screens.RegistrationScreen import RegistrationScreen
+from Screens.EditPostScreen import EditPostScreen
 
 
 class ScreenManager(ScreenManager):
@@ -26,6 +27,7 @@ sm.add_widget(LoginScreen(name='login'))
 sm.add_widget(RegistrationScreen(name='registration'))
 sm.add_widget(CreatePostScreen(name='create_post'))
 sm.add_widget(PrivateScreen(name='private'))
+sm.add_widget(EditPostScreen(name='edit'))
 
 
 class BlogAndJournal(MDApp):

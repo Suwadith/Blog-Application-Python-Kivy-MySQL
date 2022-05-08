@@ -26,6 +26,12 @@ class PrivateScreen(MDScreen):
         self.load_posts()
 
 
+    def edit_post(self, blog_id):
+        StaticPages.edit_blog_id = blog_id
+        self.parent.current = "edit"
+
+
+
     def load_posts(self):
         self.ids.posts.clear_widgets()
         # if store.get('is_logged_in')['value']:
@@ -76,13 +82,20 @@ class PrivateScreen(MDScreen):
                 # )
 
                 box_layout = MDBoxLayout(
-                    orientation="horizontal"
+                    orientation="horizontal",
+                    spacing="15dp"
                 )
 
                 delete_button = MDRaisedButton(
                     pos_hint={"center_x": .5, "center_y": .5},
                     text="Delete",
                     on_press=lambda x:self.delete_post(post[0])
+                )
+
+                edit_button = MDRaisedButton(
+                    pos_hint={"center_x": .5, "center_y": .5},
+                    text="Edit",
+                    on_press=lambda x: self.edit_post(post[0])
                 )
 
                 post_card.add_widget(post_title)
@@ -92,6 +105,7 @@ class PrivateScreen(MDScreen):
                 # post_card.add_widget(author_name)
                 post_card.add_widget(box_layout)
                 box_layout.add_widget(delete_button)
+                box_layout.add_widget(edit_button)
 
                 self.ids.posts.add_widget(post_card)
 

@@ -5,6 +5,7 @@ ScreenManager:
     RegistrationScreen:
     CreatePostScreen:
     PrivateScreen:
+    EditPostScreen:
 
 <PublicScreen>:
     name: 'public'
@@ -222,7 +223,7 @@ ScreenManager:
                         #MDRaisedButton:
                             #pos_hint: {"center_x": .5, "center_y": .5}
                             #text: "Attach File"
-                            #on_press:
+                            #on_press: root.file_chooser()
 
 
                         MDBoxLayout:
@@ -267,5 +268,29 @@ ScreenManager:
                 MDBoxLayout:
                     orientation: "vertical"
                     id: posts
+                    spacing: "15dp"
+                    adaptive_height: True
+
+<EditPostScreen>:
+    name: 'edit'
+
+    on_enter: self.load_post_to_edit()
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDToolbar:
+            title: "Blog & Journal"
+            right_action_items: [["home", lambda x: setattr(root.manager, 'current', 'public')], ["human-capacity-increase", lambda x: setattr(root.manager, 'current', 'member')], ["lock", lambda x: setattr(root.manager, 'current', 'private')], ["playlist-plus", lambda x: setattr(root.manager, 'current', 'create_post')], ["head", lambda x: setattr(root.manager, 'current', 'create_post')], ["power", lambda x: setattr(root.manager, 'current', 'login')]]
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: "8dp"
+
+            ScrollView:
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    id: post
                     spacing: "15dp"
                     adaptive_height: True

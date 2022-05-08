@@ -5,6 +5,7 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.filemanager import MDFileManager
 from kivy.core.window import Window
+from plyer import filechooser
 
 
 import StaticPages
@@ -12,6 +13,12 @@ import database_handler
 
 
 class CreatePostScreen(MDScreen):
+
+    # def file_chooser(self):
+    #     filechooser.open_file(on_selection=self.selected)
+    #
+    # def selected(self, selection):
+    #     print(selection)
 
     is_member_only = "public"
 

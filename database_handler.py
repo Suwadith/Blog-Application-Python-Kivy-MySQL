@@ -73,6 +73,12 @@ def delete_blog_post(blog_id):
     else:
         return False
 
+def get_post_by_id(blog_id):
+    sql = "SELECT * FROM blog_posts WHERE blog_id='"+str(blog_id)+"'"
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    return result
+
 
 def get_public_blog_post():
     sql = "SELECT * FROM blog_posts WHERE visibility='public' ORDER BY `timestamp` DESC"
@@ -91,6 +97,18 @@ def get_user_blog_posts(username):
     cursor.execute(sql)
     results = cursor.fetchall()
     return results
+
+def update_post(title, body, blog_id):
+    title = encryption.encrypt_message(title)
+    body = encryption.encrypt_message(body)
+    sql = "UPDATE blog_posts SET title='"+title+"', body='"+body+"' WHERE blog_id='"+str(blog_id)+"'"
+    cursor.execute(sql)
+    database.commit()
+
+    if cursor.rowcount > 0:
+        return True
+    else:
+        return False
 
 
 # storing public chat messages using encryption in the DB
