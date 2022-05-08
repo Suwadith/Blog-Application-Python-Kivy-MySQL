@@ -1,19 +1,14 @@
-from kivy.storage.jsonstore import JsonStore
 from kivymd.uix.button import MDRaisedButton
 from kivymd.uix.card import MDCard, MDSeparator
 from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import MDScreen
-from kivy.uix.video import Video
 from kivy.uix.videoplayer import VideoPlayer
 from kivy.uix.image import Image
 from kivy.core.audio import SoundLoader
-import magic
 from functools import partial
-
+import magic
 
 import database_handler
-
-# store = JsonStore('storage.json')
 import encryption
 
 
@@ -42,10 +37,9 @@ class PublicScreen(MDScreen):
                 padding="20dp",
                 size_hint=[None, None],
                 size=["500dp", "500dp"],
-                pos_hint={"center_x": .5, "center_y": .5},
-                # size=self.size
-                # adaptive_height=True
+                pos_hint={"center_x": .5, "center_y": .5}
             )
+
             post_title = MDLabel(
                 halign="center",
                 text=str(encryption.decrypt_message(post[2])),
@@ -53,17 +47,19 @@ class PublicScreen(MDScreen):
                 size_hint_y=None,
                 height="40dp"
             )
+
             title_separator = MDSeparator(
                 height="1dp"
             )
+
             post_timestamp = MDLabel(
                 text=str(post[1]),
                 halign="right",
                 theme_text_color="Secondary",
-                # pos_hint={"top": 0}
                 size_hint_y=None,
                 height="20dp"
             )
+
             post_body = MDLabel(
                 text=str(encryption.decrypt_message(post[3])),
             )
@@ -79,7 +75,7 @@ class PublicScreen(MDScreen):
                 elif file_type == "audio":
                     self.audio_button = MDRaisedButton(
                         pos_hint={"center_x": .5, "center_y": .5},
-                        text="Play audio",
+                        text="Play audio"
                     )
                     audio_button_callback = partial(self.play_audio, str(post[4]))
                     self.audio_button.bind(on_press=audio_button_callback)
@@ -96,7 +92,6 @@ class PublicScreen(MDScreen):
                 height="20dp"
             )
 
-
             post_card.add_widget(post_title)
             post_card.add_widget(title_separator)
             post_card.add_widget(post_timestamp)
@@ -110,7 +105,6 @@ class PublicScreen(MDScreen):
                 post_card.add_widget(self.audio_button)
 
             post_card.add_widget(attachment_separator)
-
             post_card.add_widget(author_name)
 
             self.ids.posts.add_widget(post_card)
