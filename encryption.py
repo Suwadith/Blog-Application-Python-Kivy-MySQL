@@ -31,6 +31,6 @@ def decrypt_message(message):
 # print(decrypt_message("Z02Jr3a7afo9LA==*AczicLVqOcmowN2RU7FQyQ==*JeGw3OyzrEWhYgaY+4CneA==*pf7jCIk0j2/zkp3YyLB15A=="))
 
 
-# print(encrypt_password("cricket"))
-#
+# print(encrypt_password("Admin$123"))
+# print(encrypt_password("Charles$123"))
 # print(decrypt_password("r43cKlA7*RRmYmaI2uN0TmNlwH+3htw==*Jt03qXXqYj5vPQHbENTOzw==*yaXFD4gZllcq3RE5SJ32KA==", "killme"))

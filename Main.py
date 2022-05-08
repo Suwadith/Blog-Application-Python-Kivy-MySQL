@@ -9,6 +9,7 @@ from kivy.core.window import Window
 
 import StaticPages
 import database_handler
+from Screens.AdminScreen import AdminScreen
 from Screens.CreatePostScreen import CreatePostScreen
 from Screens.LoginScreen import LoginScreen
 from Screens.MemberScreen import MemberScreen
@@ -29,6 +30,7 @@ sm.add_widget(RegistrationScreen(name='registration'))
 sm.add_widget(CreatePostScreen(name='create_post'))
 sm.add_widget(PrivateScreen(name='private'))
 sm.add_widget(EditPostScreen(name='edit'))
+sm.add_widget(AdminScreen(name='admin'))
 
 
 class BlogAndJournal(MDApp):

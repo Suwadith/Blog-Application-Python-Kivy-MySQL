@@ -12,8 +12,6 @@ database = mysql.connector.connect(
     database="blog"
 )
 
-# print(mydb)
-
 cursor = database.cursor()
 
 
@@ -66,7 +64,7 @@ def store_blog_post(title, body, visibility, username):
     else:
         return False
 
-
+# delete a specific post using blog_id
 def delete_blog_post(blog_id):
     sql = "DELETE FROM blog_posts WHERE blog_id='" + str(blog_id) + "'"
     cursor.execute(sql)
@@ -140,6 +138,13 @@ def store_to_log(activity):
         return False
 
 
+def retrieve_logs():
+    sql = "SELECT * FROM logs ORDER BY `timestamp` DESC"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    return results
+
+
 
 # store_to_log('a','b','c')
 
@@ -148,5 +153,7 @@ def store_to_log(activity):
 # register_user("Suwadith", "wdp3YttyyX/LSQ==*vrQ7f2+vY6pWnj8+h1RRmA==*Bx+z56v6FL+BZD5SVZcU0g==*5GKS7GBWeTkrZbLisz7UZg==", "user")
 # store_public_chat("Suwadith", "chat storage check 2")
 
-# print(check_password("suwadith", "cricket")) admin
-# print(check_password("charles", "Charles!123")) user
+# print(check_password("admin", "Admin$123")) admin
+# print(check_password("charles", "Charles$123")) user
+
+
