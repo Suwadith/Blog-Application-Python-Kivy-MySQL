@@ -1,20 +1,29 @@
-from kivy.storage.jsonstore import JsonStore
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.button import MDRaisedButton
 from kivymd.uix.card import MDCard, MDSeparator
 from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import Snackbar
+from kivy.uix.videoplayer import VideoPlayer
+from kivy.core.audio import SoundLoader
+from kivy.uix.image import Image
 from functools import partial
+import magic
+
 import StaticPages
-
 import database_handler
-
-# store = JsonStore('storage.json')
 import encryption
 
 
 class PrivateScreen(MDScreen):
+
+    player = None
+    image = None
+    audio_button = None
+
+    def play_audio(self, audio_path, instance):
+        sound = SoundLoader.load(audio_path)
+        sound.play()
 
     def delete_post(self, blog_id, instance):
         result = database_handler.delete_blog_post(blog_id)
@@ -27,32 +36,29 @@ class PrivateScreen(MDScreen):
 
         self.load_posts()
 
-
     def edit_post(self, blog_id, instance):
-        # print(blog_id)
         StaticPages.edit_blog_id = blog_id
         self.parent.current = "edit"
 
-
-
     def load_posts(self):
         self.ids.posts.clear_widgets()
-        # if store.get('is_logged_in')['value']:
         if StaticPages.is_logged_in:
-            # print('in')
-            # session
             database_handler.store_to_log('accessed personal page section')
             results = database_handler.get_user_blog_posts(StaticPages.username)
             for post in results:
+
+                self.player = None
+                self.image = None
+                self.audio_button = None
+
                 post_card = MDCard(
                     orientation="vertical",
                     padding="20dp",
                     size_hint=[None, None],
                     size=["500dp", "500dp"],
-                    pos_hint={"center_x": .5, "center_y": .5},
-                    # size=self.size
-                    # adaptive_height=True
+                    pos_hint={"center_x": .5, "center_y": .5}
                 )
+
                 post_title = MDLabel(
                     halign="center",
                     text=encryption.decrypt_message(post[2]),
@@ -60,30 +66,41 @@ class PrivateScreen(MDScreen):
                     size_hint_y=None,
                     height="40dp"
                 )
+
                 title_separator = MDSeparator(
                     height="1dp"
                 )
+
                 post_timestamp = MDLabel(
                     text=str(post[1]),
                     halign="right",
                     theme_text_color="Secondary",
-                    # pos_hint={"top": 0}
                     size_hint_y=None,
                     height="20dp"
                 )
+
                 post_body = MDLabel(
-                    text=encryption.decrypt_message(post[3]),
-                    # size_hint_y=None
-                    # height='10dp'
+                    text=encryption.decrypt_message(post[3])
                 )
-                # post_attachment = MDLabel(text=(base64.b64decode(post[4])))
-                # author_name = MDLabel(
-                #     text=post[6],
-                #     halign="right",
-                #     theme_text_color="Secondary",
-                #     size_hint_y=None,
-                #     height="20dp"
-                # )
+
+                if post[4] is not None:
+                    file_type = (magic.from_file(str(post[4]), mime=True)).split("/")[0]
+
+                    if file_type == "image":
+                        self.image = Image(source=str(post[4]))
+                    elif file_type == "video":
+                        self.player = VideoPlayer(source=str(post[4]))
+                    elif file_type == "audio":
+                        self.audio_button = MDRaisedButton(
+                            pos_hint={"center_x": .5, "center_y": .5},
+                            text="Play audio"
+                        )
+                        audio_button_callback = partial(self.play_audio, str(post[4]))
+                        self.audio_button.bind(on_press=audio_button_callback)
+
+                attachment_separator = MDSeparator(
+                    height="1dp"
+                )
 
                 box_layout = MDBoxLayout(
                     orientation="horizontal",
@@ -92,28 +109,31 @@ class PrivateScreen(MDScreen):
 
                 delete_button = MDRaisedButton(
                     pos_hint={"center_x": .5, "center_y": .5},
-                    text="Delete",
-                    # on_press=lambda x:self.delete_post(post[0])
+                    text="Delete"
                 )
                 delete_button_callback = partial(self.delete_post, post[0])
                 delete_button.bind(on_press=delete_button_callback)
 
                 edit_button = MDRaisedButton(
                     pos_hint={"center_x": .5, "center_y": .5},
-                    text="Edit",
-                    # on_press=lambda x: self.edit_post(post[0])
+                    text="Edit"
                 )
                 edit_button_callback = partial(self.edit_post, post[0])
                 edit_button.bind(on_press=edit_button_callback)
-                # edit_button.bind(on_press=self.edit_post(post[0]))
-                # edit_button.bind(on_press=partial(self.edit_post, post[0]))
-                # print(post[0])
 
                 post_card.add_widget(post_title)
                 post_card.add_widget(title_separator)
                 post_card.add_widget(post_timestamp)
                 post_card.add_widget(post_body)
-                # post_card.add_widget(author_name)
+
+                if self.player is not None:
+                    post_card.add_widget(self.player)
+                if self.image is not None:
+                    post_card.add_widget(self.image)
+                if self.audio_button is not None:
+                    post_card.add_widget(self.audio_button)
+
+                post_card.add_widget(attachment_separator)
                 post_card.add_widget(box_layout)
                 box_layout.add_widget(delete_button)
                 box_layout.add_widget(edit_button)

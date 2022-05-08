@@ -1,4 +1,3 @@
-from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import Snackbar
@@ -26,9 +25,6 @@ class RegistrationScreen(MDScreen):
 
         username_check = self.verify_username_structure(username)
         password_check = self.verify_password_strength(password)
-
-        # print('user' + str(username_check))
-        # print('pass' + str(password_check))
 
         if username_check and password_check:
             execute_command = database_handler.register_user(username, password, "user")

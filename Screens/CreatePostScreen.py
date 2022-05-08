@@ -1,12 +1,6 @@
-from kivy.lang import Builder
-from kivy.uix.gridlayout import GridLayout
-from kivymd.toast import toast
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import Snackbar
-from kivymd.uix.filemanager import MDFileManager
-from kivy.core.window import Window
 from plyer import filechooser
-
 
 import StaticPages
 import database_handler
@@ -14,19 +8,12 @@ import database_handler
 
 class CreatePostScreen(MDScreen):
 
-    # def convertToBinaryData(self, filename):
-    #     # Convert digital data to binary format
-    #     with open(filename, 'rb') as file:
-    #         binaryData = file.read()
-    #     StaticPages.file = binaryData
-
     def file_chooser(self, **kwargs):
         filechooser.open_file(on_selection=self.selected, **kwargs)
 
     def selected(self, selection):
         print(selection[0])
         StaticPages.file_path = selection[0]
-        # self.convertToBinaryData(selection[0])
 
     is_member_only = "public"
 

@@ -4,9 +4,6 @@ from kivymd.uix.snackbar import Snackbar
 import StaticPages
 import database_handler
 
-
-# store = JsonStore('storage.json')
-
 class LoginScreen(MDScreen):
 
     def login(self):

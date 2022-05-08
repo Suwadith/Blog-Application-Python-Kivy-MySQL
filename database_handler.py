@@ -51,7 +51,7 @@ def register_user(username, password, user_type):
         return False
 
 
-# storing public chat messages using encryption in the DB
+# storing blog posts using encryption without attachment
 def store_blog_post(title, body, visibility, username):
     title = encryption.encrypt_message(title)
     body = encryption.encrypt_message(body)
@@ -65,6 +65,7 @@ def store_blog_post(title, body, visibility, username):
         return False
 
 
+# storing blog posts using encryption with attachment
 def store_blog_post_with_file(title, body, visibility, username, file_path):
     title = encryption.encrypt_message(title)
     body = encryption.encrypt_message(body)
@@ -77,6 +78,7 @@ def store_blog_post_with_file(title, body, visibility, username, file_path):
     else:
         return False
 
+
 # delete a specific post using blog_id
 def delete_blog_post(blog_id):
     sql = "DELETE FROM blog_posts WHERE blog_id='" + str(blog_id) + "'"
@@ -88,12 +90,14 @@ def delete_blog_post(blog_id):
     else:
         return False
 
+
 # retrieve blog post using blog_id
 def get_post_by_id(blog_id):
     sql = "SELECT * FROM blog_posts WHERE blog_id='" + str(blog_id) + "'"
     cursor.execute(sql)
     result = cursor.fetchone()
     return result
+
 
 # fetch all the non-restricted posts
 def get_public_blog_post():
@@ -102,6 +106,7 @@ def get_public_blog_post():
     results = cursor.fetchall()
     return results
 
+
 # fetch all members-only restricted posts
 def get_member_blog_post():
     sql = "SELECT * FROM blog_posts WHERE visibility='member' ORDER BY `timestamp` DESC"
@@ -109,12 +114,14 @@ def get_member_blog_post():
     results = cursor.fetchall()
     return results
 
+
 # fetch all posts made by a specific user
 def get_user_blog_posts(username):
     sql = "SELECT * FROM blog_posts WHERE username='" + username + "' ORDER BY `timestamp` DESC"
     cursor.execute(sql)
     results = cursor.fetchall()
     return results
+
 
 # edit/update a specific blog post
 def update_post(title, body, blog_id):
@@ -158,8 +165,6 @@ def retrieve_logs():
     results = cursor.fetchall()
     return results
 
-
-
 # store_to_log('a','b','c')
 
 # print(StaticPages.username if StaticPages.username != '' else "Guest")
@@ -169,5 +174,3 @@ def retrieve_logs():
 
 # print(check_password("admin", "Admin$123")) admin
 # print(check_password("charles", "Charles$123")) user
-
-

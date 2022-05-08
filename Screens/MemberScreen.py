@@ -72,7 +72,6 @@ class MemberScreen(MDScreen):
 
                     if file_type == "image":
                         self.image = Image(source=str(post[4]))
-                        # pass
                     elif file_type == "video":
                         self.player = VideoPlayer(source=str(post[4]))
                     elif file_type == "audio":
