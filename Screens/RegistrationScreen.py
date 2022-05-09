@@ -38,7 +38,7 @@ class RegistrationScreen(MDScreen):
                 Snackbar(text="username already taken").open()
         else:
             database_handler.store_to_log('unsuccessful user registration')
-            MDDialog(title="Username (5-15 characters):\n"
+            MDDialog(title="Username (5-16 characters):\n"
                            "should start with an alphabet\n"
                            "can have alphabets, numbers or an underscore\n"
                            "\n"
