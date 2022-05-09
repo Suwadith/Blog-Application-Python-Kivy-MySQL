@@ -8,7 +8,7 @@ from kivy.uix.videoplayer import VideoPlayer
 from kivy.core.audio import SoundLoader
 from kivy.uix.image import Image
 from functools import partial
-import magic
+from magic import magic
 
 import StaticPages
 import database_handler
