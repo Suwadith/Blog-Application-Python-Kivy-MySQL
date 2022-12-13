@@ -69,5 +69,4 @@
     password: Charles$123
 
 
-
-
+> Note: This program was developed as part of an assessment given by the Middlesex University
